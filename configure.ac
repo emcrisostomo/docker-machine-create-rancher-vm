@@ -17,7 +17,7 @@
 #
 dnl Copyright (C) 2018-2019 Enrico M. Crisostomo
 AC_PREREQ([2.69])
-AC_INIT([docker-machine-create-rancher-vm], [1.0.0], [enrico.m.crisostomo@gmail.com])
+AC_INIT([docker-machine-create-rancher-vm], [1.0.1], [enrico.m.crisostomo@gmail.com])
 AC_COPYRIGHT([2020 (C) Enrico M. Crisostomo])
 AC_REVISION([$Revision: 1.0.0$])
 AC_CONFIG_SRCDIR([scripts/docker-machine-create-rancher-vm.in])
