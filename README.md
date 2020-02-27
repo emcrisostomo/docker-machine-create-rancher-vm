@@ -1,21 +1,27 @@
-[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat)](https://github.com/emcrisostomo/jwt-cli/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat)](https://github.com/emcrisostomo/docker-machine-create-rancher-vm/blob/master/LICENSE)
 
-jwt-cli
-=======
+docker-machine-create-rancher-vm
+================================
 
-`jwt-cli` is a shell library to decode JWT tokens.
+`docker-machine-create-rancher-vm` is a shell script that helps the user create
+RancherOS virtual machine using `docker-machine`.  The currently supported
+`docker-machine` drivers are:
+
+  * `virtualbox`
+  * `vmwarefusion`
 
 Prerequisites
 -------------
 
-`jwt-cli` requires the following programs to be present on the `${PATH}`:
+`docker-machine-create-rancher-vm` requires the following programs to be present
+on the `${PATH}`:
 
-  * `jq`: optional.  If present, pretty output will be emitted.
-  * `base64` or `openssl`
+  * `curl`
+  * `docker-machine`
   * `zsh`
 
-Getting jwt-cli
----------------
+Getting docker-machine-create-rancher-vm
+----------------------------------------
 
 A user who whishes to build this package should get a [release
 tarball][release].  A release tarball contains everything a user needs to build
@@ -31,7 +37,7 @@ Getting a copy of the source repository is not recommended unless you are a
 developer, you have the GNU Build System installed on your machine, and you know
 how to bootstrap it on the sources.
 
-[release]: https://github.com/emcrisostomo/jwt-cli/releases
+[release]: https://github.com/emcrisostomo/docker-machine-create-rancher-vm/releases
 
 Installation
 ------------
@@ -42,49 +48,44 @@ install this package.
 Usage
 -----
 
-The following operation decodes a JWT token:
+The syntax is the following:
 
-    $ jwt-decode token
+    Usage:
+    ${PROGNAME} (options)*
+    ${PROGNAME} -h
+    ${PROGNAME} -v
 
-    {
-      "alg": "RS256",
-      "typ": "JWT",
-      "kid": "sbS_BWBm0GzfIQRnYWolcWDRnjqwDTY_Aq6Fn_boqKM"
-    }
-    {
-      "jti": "271151a3-db11-4f37-a724-4cf9957774f4",
-      "exp": 1530979706,
-      "nbf": 0,
-      "iat": 1523117306,
-      "iss": "https://domain.com/auth/realms/realm",
-      "aud": "app-name",
-      "sub": "5132c417-d772-420e-b5db-401ea633dca1",
-      "typ": "Bearer",
-      "azp": "app",
-      "auth_time": 0,
-      "session_state": "84e6a759-e54d-4fd7-9fcf-bb51131aab89",
-      "acr": "1",
-      "allowed-origins": [
-        ""
-      ],
-      "realm_access": {
-        "roles": [
-          "role0",
-          "role1",
-          "role2"
-        ]
-      },
-      "resource_access": {
-        "account": {
-          "roles": [
-            "manage-account",
-            "manage-account-links",
-            "view-profile"
-          ]
-        }
-      },
-      "custom-property": "1797"
-    }
+    Options:
+     -c, --cpu-count  Set the number of CPU cores.
+     -d, --disk-size  Set the size of the root disk (in MB).
+         --driver     Set the docker-machine driver.
+     -h, --help       Print this message.
+     -n, --name       Set the name of the virtual machine.
+     -r, --ram-size   Set the amount of RAM allocated to the virtual machine.
+     -v, --verbose    Print verbose output.
+         --version    Print the program version.
+
+The script may be invoked without any argument, in which case a virtual machine
+with the following characteristics will be created:
+
+  * CPU count: 1
+  * Disk size: 8 GB
+  * Driver: `vmwarefusion`
+  * Name: `rancheros-vm`
+  * RAM: 4096 MB
+
+Configuration parameters can be overridden by either:
+
+  * Setting the following environment variables:
+    - `VM_CPU_COUNT`
+    - `VM_DISK_SIZE`
+    - `VM_DRIVER`
+    - `VM_NAME`
+    - `VM_RAM_SIZE`
+
+  * Using the command line options described in the command synopsis.
+
+Command line options take precedence over environment variables.
 
 Bug Reports
 -----------
@@ -93,7 +94,7 @@ Bug reports can be sent directly to the authors.
 
 -----
 
-Copyright (c) 2018 Enrico M. Crisostomo
+Copyright (c) 2020 Enrico M. Crisostomo
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
