@@ -138,24 +138,37 @@ function print_usage()
   exit 0
 }
 
-function download_vmwarefusion_iso()
+function check_if_file_exists_and_is_recent()
 {
-  if [[ -e ${RANCHEROS_VMWARE_ISO_PATH} ]]
+  local iso_file=$1
+  local iso_url=$2
+
+  if [[ ! -e ${iso_file} ]]
   then
-    return
+    curl -sfL ${iso_url} > ${iso_file} ||
+      {
+        print "Cannot download ISO from: ${iso_url}. Aborting." >&2
+        return 1
+      }
   fi
 
-  curl -sfL ${RANCHEROS_VMWARE_ISO_URL} > ${RANCHEROS_VMWARE_ISO_PATH}
+  if $(find ${iso_file} -mtime +7d > /dev/null 2>&1)
+  then
+    curl -sfL -z ${iso_file} ${iso_url} > ${iso_file} ||
+      {
+        print_verbose "Cannot check if new ISO is available at URL: ${iso_url}. Skipping."
+      }
+  fi
+}
+
+function download_vmwarefusion_iso()
+{
+  check_if_file_exists_and_is_recent ${RANCHEROS_VMWARE_ISO_PATH} ${RANCHEROS_VMWARE_ISO_URL}
 }
 
 function download_virtualbox_iso()
 {
-  if [[ -e ${RANCHEROS_ISO_PATH} ]]
-  then
-    return
-  fi
-
-  curl -sfL ${RANCHEROS_ISO_URL} > ${RANCHEROS_ISO_PATH}
+  check_if_file_exists_and_is_recent ${RANCHEROS_ISO_PATH} ${RANCHEROS_ISO_URL}
 }
 
 function download_iso()
