@@ -145,16 +145,16 @@ function check_if_file_exists_and_is_recent()
 
   if [[ ! -e ${iso_file} ]]
   then
-    curl -sfL ${iso_url} > ${iso_file} ||
+    curl -sfL ${iso_url} -o ${iso_file} ||
       {
         print "Cannot download ISO from: ${iso_url}. Aborting." >&2
         return 1
       }
   fi
 
-  if $(find ${iso_file} -mtime +7d > /dev/null 2>&1)
+  if [[ ! -z $(find ${iso_file} -mtime +7d 2> /dev/null) ]]
   then
-    curl -sfL -z ${iso_file} ${iso_url} > ${iso_file} ||
+    curl -sfL -z ${iso_file} ${iso_url} -o ${iso_file} ||
       {
         print_verbose "Cannot check if new ISO is available at URL: ${iso_url}. Skipping."
       }
