@@ -116,19 +116,24 @@ function print_usage()
   print "${PROGNAME} ${PACKAGE_VERSION}"
   print
   print "Usage:"
-  print "${PROGNAME} (options)* command"
+  print "${PROGNAME} (options)*"
   print "${PROGNAME} -h"
   print "${PROGNAME} -v"
   print
   print "Options:"
-  print " -h, --help     Print this message."
-  print " -v, --verbose  Print verbose output."
-  print "     --version  Print the program version."
+  print " -c, --cpu-count  Set the number of CPU cores."
+  print " -d, --disk-size  Set the size of the root disk (in MB)."
+  print "     --driver     Set the docker-machine driver."
+  print " -h, --help       Print this message."
+  print " -n, --name       Set the name of the virtual machine."
+  print " -r, --ram-size   Set the amount of RAM allocated to the virtual machine."
+  print " -v, --verbose    Print verbose output."
+  print "     --version    Print the program version."
   print
   print "See the man page for more information."
   print
-  print "Report bugs to <https://github.com/emcrisostomo/jwt-cli/issues>."
-  print "${PROGNAME} home page: <https://github.com/emcrisostomo/jwt-cli>."
+  print "Report bugs to <https://github.com/emcrisostomo/docker-machine-create-rancher-vm/issues>."
+  print "${PROGNAME} home page: <https://github.com/emcrisostomo/docker-machine-create-rancher-vm>."
 
   exit 0
 }
