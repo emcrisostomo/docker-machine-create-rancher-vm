@@ -33,11 +33,13 @@ AM_INIT_AUTOMAKE([-Wall -Werror gnu subdir-objects])
 AM_SILENT_RULES([yes])
 
 # Checks for programs.
-AC_PATH_PROG([CURL_CMD],   [curl],    [no])
-AC_PATH_PROG([DOCKER_CMD], [openssl], [no])
+AC_PATH_PROG([CURL_CMD],           [curl],           [no])
+AC_PATH_PROG([DOCKER_MACHINE_CMD], [docker-machine], [no])
+AC_PATH_PROG([ZSH_CMD],            [zsh],            [no])
 
-AS_VAR_IF([CURL_CMD],   [no], [AC_MSG_ERROR([curl is required.])],   [])
-AS_VAR_IF([DOCKER_CMD], [no], [AC_MSG_ERROR([docker is required.])], [])
+AS_VAR_IF([CURL_CMD],           [no], [AC_MSG_ERROR([curl is required.])],           [])
+AS_VAR_IF([DOCKER_MACHINE_CMD], [no], [AC_MSG_ERROR([docker-machine is required.])], [])
+AS_VAR_IF([ZSH_CMD],            [no], [AC_MSG_ERROR([zsh is required.])],            [])
 
 # Checks for libraries.
 
