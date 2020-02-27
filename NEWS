@@ -1,0 +1,22 @@
+NEWS
+****
+
+New in 0.5.0:
+
+  * Harmonize usage of base64 options between the BSD and the GNU version.
+
+New in 0.4.0:
+
+  * Add support to read tokens from standard input.
+
+New in 0.3.0:
+
+  * Make jq optional.
+
+New in 0.2.0:
+
+  * Add support for using either base64 and openssl to decode base64 data.
+
+New in 0.1.0:
+
+  * Add jwt-decode.
