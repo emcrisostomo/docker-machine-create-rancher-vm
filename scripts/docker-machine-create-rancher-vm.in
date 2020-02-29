@@ -29,6 +29,7 @@ PROGNAME=${0:t}
 PROGDIR=${0:h}
 BUG_REPORT=@PACKAGE_BUGREPORT@
 PACKAGE_VERSION=@PACKAGE_VERSION@
+PACKAGE_URL=@PACKAGE_URL@
 
 : ${VM_CPU_COUNT:=1}
 : ${VM_DISK_SIZE:=8000}
@@ -132,8 +133,8 @@ function print_usage()
   print
   print "See the man page for more information."
   print
-  print "Report bugs to <https://github.com/emcrisostomo/docker-machine-create-rancher-vm/issues>."
-  print "${PROGNAME} home page: <https://github.com/emcrisostomo/docker-machine-create-rancher-vm>."
+  print "Report bugs to <${PACKAGE_URL}/issues>."
+  print "${PROGNAME} home page: <${PACKAGE_URL}>."
 
   exit 0
 }
