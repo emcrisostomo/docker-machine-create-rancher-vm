@@ -7,8 +7,10 @@ docker-machine-create-rancher-vm
 RancherOS virtual machine using `docker-machine`.  The currently supported
 `docker-machine` drivers are:
 
+  * `hyperv`
   * `virtualbox`
   * `vmwarefusion`
+  * `vmwarevsphere`
 
 Prerequisites
 -------------
