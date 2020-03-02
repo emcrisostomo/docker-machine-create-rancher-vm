@@ -39,9 +39,11 @@ PACKAGE_URL=@PACKAGE_URL@
 
 : ${DOCKER_MACHINE_CACHE:=~/.docker/machine/cache}
 : ${RANCHEROS_ISO_URL:=https://releases.rancher.com/os/latest/rancheros.iso}
-: ${RANCHEROS_AUTOFORMAT_ISO_URL:=https://releases.rancher.com/os/latest/vmware/rancheros-autoformat.iso}
 : ${RANCHEROS_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros.iso}
-: ${RANCHEROS_AUTOFORMAT_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-autoformat.iso}
+: ${RANCHEROS_HYPERV_ISO_URL:=https://releases.rancher.com/os/latest/hyperv/rancheros.iso}
+: ${RANCHEROS_HYPERV_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-hyperv.iso}
+: ${RANCHEROS_VMWARE_ISO_URL:=https://releases.rancher.com/os/latest/vmware/rancheros-autoformat.iso}
+: ${RANCHEROS_VMWARE_AUTOFORMAT_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-vmware-autoformat.iso}
 
 # getopts
 typeset -a cpu_opt
@@ -162,9 +164,9 @@ function check_if_file_exists_and_is_recent()
   fi
 }
 
-function download_autoformat_iso()
+function download_hyperv_iso()
 {
-  check_if_file_exists_and_is_recent ${RANCHEROS_AUTOFORMAT_ISO_PATH} ${RANCHEROS_AUTOFORMAT_ISO_URL}
+  check_if_file_exists_and_is_recent ${RANCHEROS_HYPERV_ISO_PATH} ${RANCHEROS_HYPERV_ISO_URL}
 }
 
 function download_virtualbox_iso()
@@ -172,16 +174,27 @@ function download_virtualbox_iso()
   check_if_file_exists_and_is_recent ${RANCHEROS_ISO_PATH} ${RANCHEROS_ISO_URL}
 }
 
+function download_vmware_iso()
+{
+  check_if_file_exists_and_is_recent ${RANCHEROS_VMWARE_ISO_PATH} ${RANCHEROS_VMWARE_ISO_URL}
+}
+
 function download_iso()
 {
   mkdir -p ${DOCKER_MACHINE_CACHE}
 
   case ${VM_DRIVER} in
+    hyperv)
+      download_hyperv_iso
+      ;;
     virtualbox)
       download_virtualbox_iso
       ;;
     vmwarefusion)
-      download_autoformat_iso
+      download_vmware_iso
+      ;;
+    vmwarevsphere)
+      download_vmware_iso
       ;;
     *)
       print "Unknown driver: ${VM_DRIVER}" >&2
@@ -199,12 +212,11 @@ function create_vm()
                           create -d ${vm_driver} )
 
   case ${vm_driver} in
-    vmwarefusion)
-      docker_machine_cmd+=( --vmwarefusion-boot2docker-url ${RANCHEROS_AUTOFORMAT_ISO_PATH} \
-                              --vmwarefusion-cpu-count ${vm_cpu_count} \
-                              --vmwarefusion-memory-size ${vm_ram_size} \
-                              --vmwarefusion-disk-size ${vm_disk_size} \
-                              --vmwarefusion-no-share )
+    hyperv)
+      docker_machine_cmd+=( --hyperv-boot2docker-url ${RANCHEROS_ISO_PATH} \
+                              --hyperv-cpu-count ${vm_cpu_count} \
+                              --hyperv-memory ${vm_ram_size} \
+                              --hyperv-disk-size ${vm_disk_size} )
       ;;
 
     virtualbox)
@@ -212,6 +224,21 @@ function create_vm()
                               --virtualbox-cpu-count ${vm_cpu_count} \
                               --virtualbox-memory ${vm_ram_size} \
                               --virtualbox-disk-size ${vm_disk_size} )
+      ;;
+
+    vmwarefusion)
+      docker_machine_cmd+=( --vmwarefusion-boot2docker-url ${RANCHEROS_VMWARE_ISO_PATH} \
+                              --vmwarefusion-cpu-count ${vm_cpu_count} \
+                              --vmwarefusion-memory-size ${vm_ram_size} \
+                              --vmwarefusion-disk-size ${vm_disk_size} \
+                              --vmwarefusion-no-share )
+      ;;
+
+    vmwarevsphere)
+      docker_machine_cmd+=( --vmwarevsphere-boot2docker-url ${RANCHEROS_VMWARE_ISO_PATH} \
+                              --vmwarevsphere-cpu-count ${vm_cpu_count} \
+                              --vmwarevsphere-memory-size ${vm_ram_size} \
+                              --vmwarevsphere-disk-size ${vm_disk_size} )
       ;;
 
     *)
