@@ -177,11 +177,11 @@ function download_iso()
   mkdir -p ${DOCKER_MACHINE_CACHE}
 
   case ${VM_DRIVER} in
-    vmwarefusion)
-      download_autoformat_iso
-      ;;
     virtualbox)
       download_virtualbox_iso
+      ;;
+    vmwarefusion)
+      download_autoformat_iso
       ;;
     *)
       print "Unknown driver: ${VM_DRIVER}" >&2
