@@ -43,7 +43,7 @@ PACKAGE_URL=@PACKAGE_URL@
 : ${RANCHEROS_HYPERV_ISO_URL:=https://releases.rancher.com/os/latest/hyperv/rancheros.iso}
 : ${RANCHEROS_HYPERV_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-hyperv.iso}
 : ${RANCHEROS_VMWARE_ISO_URL:=https://releases.rancher.com/os/latest/vmware/rancheros-autoformat.iso}
-: ${RANCHEROS_VMWARE_AUTOFORMAT_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-vmware-autoformat.iso}
+: ${RANCHEROS_VMWARE_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-vmware-autoformat.iso}
 
 # getopts
 typeset -a cpu_opt
