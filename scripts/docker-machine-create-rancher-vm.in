@@ -39,9 +39,9 @@ PACKAGE_URL=@PACKAGE_URL@
 
 : ${DOCKER_MACHINE_CACHE:=~/.docker/machine/cache}
 : ${RANCHEROS_ISO_URL:=https://releases.rancher.com/os/latest/rancheros.iso}
-: ${RANCHEROS_VMWARE_ISO_URL:=https://releases.rancher.com/os/latest/vmware/rancheros-autoformat.iso}
+: ${RANCHEROS_AUTOFORMAT_ISO_URL:=https://releases.rancher.com/os/latest/vmware/rancheros-autoformat.iso}
 : ${RANCHEROS_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros.iso}
-: ${RANCHEROS_VMWARE_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-autoformat.iso}
+: ${RANCHEROS_AUTOFORMAT_ISO_PATH:=${DOCKER_MACHINE_CACHE}/rancheros-autoformat.iso}
 
 # getopts
 typeset -a cpu_opt
@@ -162,9 +162,9 @@ function check_if_file_exists_and_is_recent()
   fi
 }
 
-function download_vmwarefusion_iso()
+function download_autoformat_iso()
 {
-  check_if_file_exists_and_is_recent ${RANCHEROS_VMWARE_ISO_PATH} ${RANCHEROS_VMWARE_ISO_URL}
+  check_if_file_exists_and_is_recent ${RANCHEROS_AUTOFORMAT_ISO_PATH} ${RANCHEROS_AUTOFORMAT_ISO_URL}
 }
 
 function download_virtualbox_iso()
@@ -178,7 +178,7 @@ function download_iso()
 
   case ${VM_DRIVER} in
     vmwarefusion)
-      download_vmwarefusion_iso
+      download_autoformat_iso
       ;;
     virtualbox)
       download_virtualbox_iso
@@ -200,7 +200,7 @@ function create_vm()
 
   case ${vm_driver} in
     vmwarefusion)
-      docker_machine_cmd+=( --vmwarefusion-boot2docker-url ${RANCHEROS_VMWARE_ISO_PATH} \
+      docker_machine_cmd+=( --vmwarefusion-boot2docker-url ${RANCHEROS_AUTOFORMAT_ISO_PATH} \
                               --vmwarefusion-cpu-count ${vm_cpu_count} \
                               --vmwarefusion-memory-size ${vm_ram_size} \
                               --vmwarefusion-disk-size ${vm_disk_size} \
