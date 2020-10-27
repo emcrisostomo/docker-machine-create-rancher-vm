@@ -15,9 +15,9 @@
 #
 # Process this file with autoconf to produce a configure script.
 #
-dnl Copyright (C) 2018-2019 Enrico M. Crisostomo
+dnl Copyright (C) 2018-2020 Enrico M. Crisostomo
 AC_PREREQ([2.69])
-AC_INIT([docker-machine-create-rancher-vm], [1.0.4], [enrico.m.crisostomo@gmail.com], [], [https://github.com/emcrisostomo/docker-machine-create-rancher-vm])
+AC_INIT([docker-machine-create-rancher-vm], [1.0.5], [enrico.m.crisostomo@gmail.com], [], [https://github.com/emcrisostomo/docker-machine-create-rancher-vm])
 AC_COPYRIGHT([2020 (C) Enrico M. Crisostomo])
 AC_REVISION([$Revision: 1.0.0$])
 AC_CONFIG_SRCDIR([scripts/docker-machine-create-rancher-vm.in])
