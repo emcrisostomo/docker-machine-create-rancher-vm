@@ -33,7 +33,7 @@ PACKAGE_URL=@PACKAGE_URL@
 
 : ${VM_CPU_COUNT:=1}
 : ${VM_DISK_SIZE:=8000}
-: ${VM_DRIVER:=vmwarefusion}
+: ${VM_DRIVER:=vmware}
 : ${VM_NAME:=rancheros-vm}
 : ${VM_RAM_SIZE:=2048}
 
@@ -190,6 +190,9 @@ function download_iso()
     virtualbox)
       download_virtualbox_iso
       ;;
+    vmware)
+      download_vmware_iso
+      ;;
     vmwarefusion)
       download_vmware_iso
       ;;
@@ -224,6 +227,14 @@ function create_vm()
                               --virtualbox-cpu-count ${vm_cpu_count} \
                               --virtualbox-memory ${vm_ram_size} \
                               --virtualbox-disk-size ${vm_disk_size} )
+      ;;
+
+    vmware)
+      docker_machine_cmd+=( --vmware-boot2docker-url ${RANCHEROS_VMWARE_ISO_PATH} \
+                              --vmware-cpu-count ${vm_cpu_count} \
+                              --vmware-memory-size ${vm_ram_size} \
+                              --vmware-disk-size ${vm_disk_size} \
+                              --vmware-no-share )
       ;;
 
     vmwarefusion)
