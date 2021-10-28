@@ -1,5 +1,5 @@
 #                                               -*- Autoconf -*-
-# Copyright (C) 2020 Enrico M. Crisostomo
+# Copyright (C) 2020-2021 Enrico M. Crisostomo
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -15,18 +15,17 @@
 #
 # Process this file with autoconf to produce a configure script.
 #
-dnl Copyright (C) 2018-2019 Enrico M. Crisostomo
+dnl Copyright (C) 2020-2021 Enrico M. Crisostomo
 AC_PREREQ([2.69])
-AC_INIT([docker-machine-create-rancher-vm], [1.0.4], [enrico.m.crisostomo@gmail.com], [], [https://github.com/emcrisostomo/docker-machine-create-rancher-vm])
-AC_COPYRIGHT([2020 (C) Enrico M. Crisostomo])
-AC_REVISION([$Revision: 1.0.0$])
+AC_INIT([docker-machine-create-rancher-vm], [1.0.6], [enrico.m.crisostomo@gmail.com], [], [https://github.com/emcrisostomo/docker-machine-create-rancher-vm])
+AC_COPYRIGHT([2020-2021 (C) Enrico M. Crisostomo])
+AC_REVISION([$Revision: 1.0.6$])
 AC_CONFIG_SRCDIR([scripts/docker-machine-create-rancher-vm.in])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([scripts/docker-machine-create-rancher-vm])
 AC_CONFIG_MACRO_DIRS([m4])
-AC_CONFIG_MACRO_DIR([m4])
 
 # Initialize Automake
 AM_INIT_AUTOMAKE([-Wall -Werror gnu subdir-objects])
